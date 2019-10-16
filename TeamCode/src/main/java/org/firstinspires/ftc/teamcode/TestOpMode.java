@@ -5,7 +5,7 @@ package org.firstinspires.ftc.teamcode;
 public class TestOpMode extends TestHardware {
 
     boolean bPress = false;
-    boolean aPress = true;
+    boolean aPress = false;
 
     @Override
     public void init() {
@@ -16,14 +16,15 @@ public class TestOpMode extends TestHardware {
     public void loop() {
         super.loop();
 
-        // gamepad1.b = TRUE
-        // bPress = FALSE
+
         if (gamepad1.b) {
             if (!bPress) {
-                // do something
+                rightMotor.setPower(.51);
+                telemetry.addLine("b is being pressed");
                 bPress = true;
             }
         }  else {
+            rightMotor.setPower(0);
             bPress = false;
         }
 
