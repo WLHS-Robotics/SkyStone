@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 // Created by Andrew
 
-public class TestHardware extends OpMode {
+public class TestHardware extends LinearOpMode {
 
     public DcMotor leftMotor;
     public DcMotor rightMotor;
