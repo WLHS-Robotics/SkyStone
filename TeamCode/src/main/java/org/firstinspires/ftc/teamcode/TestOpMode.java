@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 // Created by Andrew
 
-public class TestOpMode extends TestHardware {
+public class OpMode extends TestHardware {
 
     boolean bPress = false;
     boolean aPress = false;

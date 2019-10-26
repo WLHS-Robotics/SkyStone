@@ -1,28 +1,38 @@
-@@ -0,0 +1,27 @@
 package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+
+
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 // Created by Andrew
+@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
 
-public class TestHardware extends OpMode {
+public class testHardware extends LinearOpMode {
 
-    public DcMotor leftMotor;
-    public DcMotor rightMotor;
+    private DcMotor leftMotor;
+    private DcMotor rightMotor;
 
     @Override
-    public void init(){
-        try {
+    public void runOpMode() {
+        
             leftMotor = hardwareMap.dcMotor.get("leftMotor");
             rightMotor = hardwareMap.dcMotor.get("rightMotor");
-        } catch (Exception e) {
-            telemetry.addData("Not Found:", e.getMessage());
+       
+          //  telemetry.addData("MOTORS defined"));
+			
+			leftMotor.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
+        rightMotor.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+
+        // Set all motors to zero power
+        leftMotor.setPower(.5);
+        rightMotor.setPower(.5);
         }
     }
 
-    @Override
-    public void loop() {
-
-    }
-}
+ 
