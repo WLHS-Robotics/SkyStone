@@ -17,6 +17,10 @@ public class TestHardware extends LinearOpMode {
 
     private DcMotor leftMotor;
     private DcMotor rightMotor;
+	private DcMotor leftSuck;
+	private DcMotor rightSuck;
+	private DcMotor leftRise;
+	private DcMotor rightRise;
 
     @Override
     public void runOpMode() {
@@ -32,7 +36,7 @@ public class TestHardware extends LinearOpMode {
         // Set all motors to zero power
         leftMotor.setPower(0);
         rightMotor.setPower(0);
+		leftSuck.setPower(0);
+		rightSuck.setPower(0);
         }
     }
-
- 
