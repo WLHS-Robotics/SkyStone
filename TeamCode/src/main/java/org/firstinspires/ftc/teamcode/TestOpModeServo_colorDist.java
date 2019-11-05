@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 @TeleOp(name="TestOpModeServo_colorDist", group="Linear Opmode")
 //@Disabled
 
-public class pTestOpModeServo_colorDist extends LinearOpMode {
+public class TestOpModeServo_colorDist extends LinearOpMode {
 
         // Declare OpMode members.
         private ElapsedTime runtime = new ElapsedTime();
