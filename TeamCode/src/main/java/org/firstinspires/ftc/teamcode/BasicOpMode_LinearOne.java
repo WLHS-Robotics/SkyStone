@@ -51,13 +51,15 @@ import com.qualcomm.robotcore.util.Range;
  */
 
 @TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
-@Disabled
+
 public class BasicOpMode_LinearOne extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
+    private DcMotor leftSuck = null;
+    private DcMotor rightSuck = null;
 
     @Override
     public void runOpMode() {
@@ -67,13 +69,18 @@ public class BasicOpMode_LinearOne extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+        leftDrive  = hardwareMap.get(DcMotor.class, "leftDrive");
+        rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
+        leftSuck = hardwareMap.get(DcMotor.class, "leftSuck");
+        rightSuck = hardwareMap.get(DcMotor.class, "rightSuck");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        leftSuck.setDirection(DcMotor.Direction.REVERSE);
+        rightSuck.setDirection(DcMotor.Direction.REVERSE);
+
 
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
@@ -85,6 +92,8 @@ public class BasicOpMode_LinearOne extends LinearOpMode {
             // Setup a variable for each drive wheel to save power level for telemetry
             double leftPower;
             double rightPower;
+            double leftSuckPower;
+            double rightSuckPower;
 
             // Choose to drive using either Tank Mode, or POV Mode
             // Comment out the method that's not used.  The default below is POV.
@@ -95,15 +104,24 @@ public class BasicOpMode_LinearOne extends LinearOpMode {
             double turn  =  gamepad1.right_stick_x;
             leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
             rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+            leftSuckPower = 0;
+            rightSuckPower = 0;
 
-            // Tank Mode uses one stick to control each wheel.
+            if (gamepad1.a){
+                leftSuckPower = 1;
+                rightSuckPower = 1;
+            }
+
+            // Tan.k Mode uses one stick to control each wheel.
             // - This requires no math, but it is hard to drive forward slowly and keep straight.
-            // leftPower  = -gamepad1.left_stick_y ;
+            // le.ftPower  = -gamepad1.left_stick_y ;
             // rightPower = -gamepad1.right_stick_y ;
 
             // Send calculated power to wheels
             leftDrive.setPower(leftPower);
             rightDrive.setPower(rightPower);
+            rightSuck.setPower(rightSuckPower);
+            leftSuck.setPower(leftSuckPower);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
