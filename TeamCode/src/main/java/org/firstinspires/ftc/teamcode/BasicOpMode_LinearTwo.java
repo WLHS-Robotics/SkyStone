@@ -31,7 +31,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -50,16 +49,16 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
+@TeleOp(name="Basic: Linear OpMode One", group="Linear Opmode")
 
-public class BasicOpMode_LinearOne extends LinearOpMode {
+public class BasicOpMode_LinearTwo extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
-    private DcMotor leftSuck = null;
-    private DcMotor rightSuck = null;
+    //private DcMotor leftSuck = null;
+    //private DcMotor rightSuck = null;
 
     @Override
     public void runOpMode() {
@@ -71,15 +70,15 @@ public class BasicOpMode_LinearOne extends LinearOpMode {
         // step (using the FTC Robot Controller app on the phone).
         leftDrive  = hardwareMap.get(DcMotor.class, "leftDrive");
         rightDrive = hardwareMap.get(DcMotor.class, "rightDrive");
-        leftSuck = hardwareMap.get(DcMotor.class, "leftSuck");
-        rightSuck = hardwareMap.get(DcMotor.class, "rightSuck");
+      //  leftSuck = hardwareMap.get(DcMotor.class, "leftSuck");
+        //rightSuck = hardwareMap.get(DcMotor.class, "rightSuck");
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
-        leftSuck.setDirection(DcMotor.Direction.REVERSE);
-        rightSuck.setDirection(DcMotor.Direction.REVERSE);
+        //leftSuck.setDirection(DcMotor.Direction.REVERSE);
+      //  rightSuck.setDirection(DcMotor.Direction.REVERSE);
 
 
         // Wait for the game to start (driver presses PLAY)
@@ -92,8 +91,8 @@ public class BasicOpMode_LinearOne extends LinearOpMode {
             // Setup a variable for each drive wheel to save power level for telemetry
             double leftPower;
             double rightPower;
-            double leftSuckPower;
-            double rightSuckPower;
+          //  double leftSuckPower;
+          //  double rightSuckPower;
 
             // Choose to drive using either Tank Mode, or POV Mode
             // Comment out the method that's not used.  The default below is POV.
@@ -104,13 +103,13 @@ public class BasicOpMode_LinearOne extends LinearOpMode {
             double turn  =  gamepad1.right_stick_x;
             leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
             rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
-            leftSuckPower = 0;
-            rightSuckPower = 0;
+           // leftSuckPower = 0;
+           // rightSuckPower = 0;
 
-            if (gamepad1.a){
-                leftSuckPower = 1;
-                rightSuckPower = 1;
-            }
+          //  if (gamepad1.a){
+            //    leftSuckPower = 1;
+              //  rightSuckPower = 1;
+           // }
 
             // Tan.k Mode uses one stick to control each wheel.
             // - This requires no math, but it is hard to drive forward slowly and keep straight.
@@ -120,8 +119,8 @@ public class BasicOpMode_LinearOne extends LinearOpMode {
             // Send calculated power to wheels
             leftDrive.setPower(leftPower);
             rightDrive.setPower(rightPower);
-            rightSuck.setPower(rightSuckPower);
-            leftSuck.setPower(leftSuckPower);
+          //  rightSuck.setPower(rightSuckPower);
+            //leftSuck.setPower(leftSuckPower);
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
