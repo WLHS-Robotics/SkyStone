@@ -27,13 +27,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teleop;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.hardware.Hardware1920;
@@ -52,14 +47,13 @@ import org.firstinspires.ftc.teamcode.hardware.Hardware1920;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Basic: Linear OpMode One", group="Linear Opmode")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Manual", group="Linear Opmode")
 
 public class Manual extends Hardware1920 {
 
     public final double suckPower = 1;
 
     // Declare OpMode members.
-    private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void loop() {
