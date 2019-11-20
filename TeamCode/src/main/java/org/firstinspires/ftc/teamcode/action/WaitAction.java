@@ -8,6 +8,9 @@ public class WaitAction implements Action {
     double time;
     double endTime;
 
+    public double I_AM_PUBLIC = 100;
+    private double I_AM_PRIVATE = 100;
+
     public WaitAction(double time) {
         this.time = time;
     }
