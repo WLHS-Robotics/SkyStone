@@ -17,6 +17,10 @@ public class ActionSequence {
 
     }
 
+    public int getCurrentPosition() {
+        return currentPosition;
+    }
+
     public Action getCurrentAction() {
 
         if (currentPosition < actions.size()){
