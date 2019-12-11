@@ -41,7 +41,7 @@ public class ActionExecutor {
             if (!didInit){
                 // Initialize the action, and set the didInit to true so that we don't end up
                 // initializing the action every iteration of the loop.
-                currentAction.init(hardware);
+                currentAction.prepareAction(hardware);
                 didInit = true;
             }
 

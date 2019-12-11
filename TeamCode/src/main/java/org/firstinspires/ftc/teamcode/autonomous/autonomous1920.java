@@ -14,7 +14,7 @@ public class autonomous1920 extends Hardware1920 {
 
     @Override
     public void init() {
-        //super.init();
+        //super.prepareAction();
         executor = new ActionExecutor(new TestSequence(), this);
     }
 

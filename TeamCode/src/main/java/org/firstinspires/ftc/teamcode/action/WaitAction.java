@@ -8,14 +8,13 @@ public class WaitAction implements Action {
     double time;
     double endTime;
 
-    public double I_AM_PUBLIC = 100;
-    private double I_AM_PRIVATE = 100;
+
 
     public WaitAction(double time) {
         this.time = time;
     }
 
-    public void init(Hardware1920 hardware) {
+    public void prepareAction(Hardware1920 hardware) {
 
         System.currentTimeMillis();
         endTime = System.currentTimeMillis() + time;
