@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.hardware.Hardware1920;
 
 public class MoveAction implements Action {
 
-    enum Direction{
+    public enum Direction{
         forwards, backwards
     }
 
