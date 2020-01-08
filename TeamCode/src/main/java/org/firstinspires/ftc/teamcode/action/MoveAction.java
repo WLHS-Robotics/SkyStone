@@ -14,7 +14,7 @@ public class MoveAction implements Action {
     double distance;
     Direction direction;
     double timeout;
-    public double COUNTS_PER_INCH = 0;
+
     public double power;
 
     public MoveAction(double power, double distance, Direction direction, double timeout) {
@@ -27,8 +27,8 @@ public class MoveAction implements Action {
 
 
     public void prepareAction(Hardware1920 hardware){
-        hardware.leftDrive.setTargetPosition((int) (hardware.leftDrive.getCurrentPosition() + distance * COUNTS_PER_INCH));
-        hardware.rightDrive.setTargetPosition((int) (hardware.rightDrive.getCurrentPosition() + distance * COUNTS_PER_INCH));
+        hardware.leftDrive.setTargetPosition((int) (hardware.leftDrive.getCurrentPosition() + distance * hardware.COUNTS_PER_INCH));
+        hardware.rightDrive.setTargetPosition((int) (hardware.rightDrive.getCurrentPosition() + distance * hardware.COUNTS_PER_INCH));
         hardware.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         hardware.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
@@ -38,8 +38,8 @@ public class MoveAction implements Action {
         if (!hardware.leftDrive.isBusy() && !hardware.rightDrive.isBusy()) {
             hardware.leftDrive.setPower(0);
             hardware.rightDrive.setPower(0);
-            hardware.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            hardware.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            hardware.leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            hardware.rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             return true;
         } else {
             hardware.leftDrive.setPower(power);

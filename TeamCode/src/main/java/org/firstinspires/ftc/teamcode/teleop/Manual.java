@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode.teleop;
 
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.hardware.Hardware1920;
@@ -47,11 +48,15 @@ import org.firstinspires.ftc.teamcode.hardware.Hardware1920;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Manual", group="Linear Opmode")
+@TeleOp(name="Manual", group="Linear Opmode")
 
 public class Manual extends Hardware1920 {
 
-    public final double suckPower = 1;
+    public final double suckPower = -1;
+    public final double gripPower = 1;
+
+    boolean gripPress = false;
+    boolean gripping = false;
 
     // Declare OpMode members.
 
@@ -59,10 +64,10 @@ public class Manual extends Hardware1920 {
     public void loop() {
         super.loop();
 
-        double drive = -gamepad1.left_stick_y;
-        double turn = gamepad1.right_stick_x;
-        double leftPower = Range.clip(drive + turn, -1.0, 1.0);
-        double rightPower = Range.clip(drive - turn, -1.0, 1.0);
+        double drive = gamepad1.left_stick_y;
+        double turn = gamepad1.left_stick_x;
+        double leftPower = Range.clip(drive - turn, -1.0, 1.0);
+        double rightPower = Range.clip(drive + turn, -1.0, 1.0);
         leftDrive.setPower(leftPower);
         rightDrive.setPower(rightPower);
 
@@ -78,6 +83,27 @@ public class Manual extends Hardware1920 {
             rightSuck.setPower(0);
 
         }
+
+
+        double lift = gamepad2.right_stick_y;
+        double armMotion = gamepad2.left_stick_x;
+        double liftPower = Range.clip(lift, -1.0, 1.0);
+        double armPower = Range.clip(armMotion, -1.0, 1.0);
+        leftLiftMotor.setPower(liftPower);
+        rightLiftMotor.setPower(liftPower);
+        armMotor.setPower(armPower);
+
+
+
+        if (gamepad2.left_bumper && !gripPress) {
+            leftGripServo.setPosition(gripping ? 0 : 0.5);
+            rightGripServo.setPosition(gripping ? 0 : 0.5);
+            gripPress = true;
+            gripping = !gripping;
+        }  else {
+            gripPress = false;
+        }
+
 
     }
 }

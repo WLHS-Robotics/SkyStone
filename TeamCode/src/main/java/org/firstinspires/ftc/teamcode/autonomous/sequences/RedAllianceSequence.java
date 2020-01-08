@@ -21,5 +21,18 @@ public class RedAllianceSequence extends ActionSequence {
         addAction(new MoveAction(.25, 4, MoveAction.Direction.forwards, 3000));
         addAction(new RotateAction(-90));
         addAction(new MoveAction(1, 20, MoveAction.Direction.forwards, 5000));
+
+
+        //picking up block
+        //grip
+        //lift
+        //move
+
+
+        // Place block?
+
+        //Lift ARm
+        // Grip ARm
+        // Grip
     }
 }
