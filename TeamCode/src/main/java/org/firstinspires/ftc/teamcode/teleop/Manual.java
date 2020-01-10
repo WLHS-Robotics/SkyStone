@@ -29,29 +29,19 @@
 
 package org.firstinspires.ftc.teamcode.teleop;
 
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.hardware.Hardware1920;
-
-
-/**
- * This file contains an minimal example of a Linear "OpMode". An OpMode is a 'program' that runs in either
- * the autonomous or the teleop period of an FTC match. The names of OpModes appear on the menu
- * of the FTC Driver Station. When an selection is made from the menu, the corresponding OpMode
- * class is instantiated on the Robot Controller and executed.
- *
- * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
- * It includes all the skeletal structure that all linear OpModes contain.
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
-
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Manual", group="Linear Opmode")
-
+// public
+@TeleOp(name="Manual", group="")
 public class Manual extends Hardware1920 {
 
+    boolean fastMode = false;
+
     public final double suckPower = 1;
+    public final float SLOW_POWER = 0.4f;
+    public final float FAST_POWER = 1;
 
     // Declare OpMode members.
 
@@ -59,24 +49,27 @@ public class Manual extends Hardware1920 {
     public void loop() {
         super.loop();
 
-        double drive = -gamepad1.left_stick_y;
-        double turn = gamepad1.right_stick_x;
-        double leftPower = Range.clip(drive + turn, -1.0, 1.0);
-        double rightPower = Range.clip(drive - turn, -1.0, 1.0);
-        leftDrive.setPower(leftPower);
-        rightDrive.setPower(rightPower);
+        if (gamepad1.left_trigger > 0) {
+            omniDrive.rotateLeft(gamepad1.left_trigger);
+        } else if (gamepad1.right_trigger > 0) {
+            omniDrive.rotateRight(gamepad1.right_trigger);
+        } else {
+            omniDrive.dpadMove(gamepad1, fastMode ? FAST_POWER : SLOW_POWER, false, true);
+        }
 
 
         if (gamepad1.a) {
-
             leftSuck.setPower(suckPower);
             rightSuck.setPower(suckPower);
-
         } else {
-
             leftSuck.setPower(0);
             rightSuck.setPower(0);
+        }
 
+        if (gamepad1.b && !fastMode) {
+            fastMode = true;
+        } else {
+            fastMode = false;
         }
 
     }

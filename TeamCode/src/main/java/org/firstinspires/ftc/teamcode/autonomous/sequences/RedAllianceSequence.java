@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.autonomous.ActionSequence;
 public class RedAllianceSequence extends ActionSequence {
 
     public RedAllianceSequence() {
-        addAction(new MoveAction(.5, 24, MoveAction.Direction.forwards, 5000));
+        /*addAction(new MoveAction(.5, 24, MoveAction.Direction.forwards, 5000));
         addAction(new RotateAction(-45));
         addAction(new MoveAction(.5, 5, MoveAction.Direction.forwards, 5000 ));
         addAction(new SuckAction(1, 2000));
@@ -20,6 +20,6 @@ public class RedAllianceSequence extends ActionSequence {
         // to do: drop the block
         addAction(new MoveAction(.25, 4, MoveAction.Direction.forwards, 3000));
         addAction(new RotateAction(-90));
-        addAction(new MoveAction(1, 20, MoveAction.Direction.forwards, 5000));
+        addAction(new MoveAction(1, 20, MoveAction.Direction.forwards, 5000));*/
     }
 }

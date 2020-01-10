@@ -7,9 +7,15 @@ import org.firstinspires.ftc.teamcode.hardware.Hardware1920;
 
 public class RotateAction implements Action {
 
-    public double COUNTS_IN_360 = 0;
-    public double COUNTS_PER_DEGREE = COUNTS_IN_360/360.0;
-    public double degrees;
+    double degrees;
+    int pos;
+    static final float ROTATE_POWER = 0.7f;
+
+    int fl_pos;
+    int fr_pos;
+    int bl_pos;
+    int br_pos;
+    boolean rotatingRight;
 
     public RotateAction(double degrees){
         this.degrees = degrees;
@@ -17,24 +23,39 @@ public class RotateAction implements Action {
 
     @Override
     public void prepareAction(Hardware1920 hardware) {
-        hardware.leftDrive.setTargetPosition((int) (hardware.leftDrive.getCurrentPosition() + degrees * COUNTS_IN_360));
-        hardware.rightDrive.setTargetPosition((int) -(hardware.rightDrive.getCurrentPosition() + degrees * COUNTS_IN_360));
-        hardware.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        hardware.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        pos = (int) ((degrees/360D) * hardware.ROBOT_CIRCUMFRENCE * hardware.COUNTS_PER_INCH);
+
+        rotatingRight = degrees > 0;
+        fl_pos = hardware.omniDrive.frontLeft.getCurrentPosition();
+        fr_pos = hardware.omniDrive.frontRight.getCurrentPosition();
+        bl_pos = hardware.omniDrive.backLeft.getCurrentPosition();
+        br_pos = hardware.omniDrive.backRight.getCurrentPosition();
+
+        hardware.frontLeft.setTargetPosition(rotatingRight ? (fl_pos + pos) : (fl_pos - pos));
+        hardware.frontRight.setTargetPosition(rotatingRight ? (fr_pos - pos) : (fl_pos + pos));
+        hardware.backLeft.setTargetPosition(rotatingRight ? (bl_pos + pos) : (fl_pos - pos));
+        hardware.backRight.setTargetPosition(rotatingRight ? (br_pos - pos) : (fl_pos + pos));
+        hardware.omniDrive.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hardware.omniDrive.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hardware.omniDrive.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hardware.omniDrive.backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     @Override
     public boolean doAction(Hardware1920 hardware) {
-        if (!hardware.leftDrive.isBusy() && !hardware.rightDrive.isBusy()) {
-            hardware.leftDrive.setPower(0);
-            hardware.rightDrive.setPower(0);
-            hardware.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            hardware.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            return true;
+        boolean busy = hardware.omniDrive.frontLeft.isBusy() || hardware.omniDrive.frontRight.isBusy() || hardware.backLeft.isBusy() || hardware.backRight.isBusy();
+        if (busy) {
+            hardware.omniDrive.frontLeft.setPower(rotatingRight ? ROTATE_POWER : -ROTATE_POWER);
+            hardware.omniDrive.frontRight.setPower(rotatingRight ? -ROTATE_POWER : ROTATE_POWER);
+            hardware.omniDrive.backLeft.setPower(rotatingRight ? ROTATE_POWER : -ROTATE_POWER);
+            hardware.omniDrive.backRight.setPower(rotatingRight ? -ROTATE_POWER : ROTATE_POWER);
         } else {
-            hardware.leftDrive.setPower(0.25);
-            hardware.rightDrive.setPower(0.25);
-            return false;
+            hardware.omniDrive.stopDrive();
+            hardware.omniDrive.frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            hardware.omniDrive.frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            hardware.omniDrive.backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            hardware.omniDrive.backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
+        return !busy;
     }
 }
