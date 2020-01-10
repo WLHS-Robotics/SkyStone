@@ -38,6 +38,8 @@ import org.firstinspires.ftc.teamcode.hardware.Hardware1920;
 public class Manual extends Hardware1920 {
 
     boolean fastMode = false;
+    boolean gripPress = false;
+    boolean gripping = false;
 
     public final double suckPower = 1;
     public final float SLOW_POWER = 0.4f;
@@ -71,6 +73,27 @@ public class Manual extends Hardware1920 {
         } else {
             fastMode = false;
         }
+
+
+        double lift = gamepad2.right_stick_y;
+        double armMotion = gamepad2.left_stick_x;
+        double liftPower = Range.clip(lift, -1.0, 1.0);
+        double armPower = Range.clip(armMotion, -1.0, 1.0);
+        leftLiftMotor.setPower(liftPower);
+        rightLiftMotor.setPower(liftPower);
+        armMotor.setPower(armPower);
+
+
+
+        if (gamepad2.left_bumper && !gripPress) {
+            leftGripServo.setPosition(gripping ? 0 : 0.5);
+            rightGripServo.setPosition(gripping ? 0 : 0.5);
+            gripPress = true;
+            gripping = !gripping;
+        }  else {
+            gripPress = false;
+        }
+
 
     }
 }
