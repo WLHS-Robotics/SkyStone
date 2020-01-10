@@ -17,8 +17,8 @@ public class LiftArmAction implements Action {
 
     @Override
     public void prepareAction(Hardware1920 hardware) {
-      hardware.leftLiftMotor.setTargetPosition(hardware.leftLiftStartingPosition + height);
-      hardware.rightLiftMotor.setTargetPosition(hardware.rightLiftStartingPosition + height);
+      //hardware.leftLiftMotor.setTargetPosition(hardware.leftLiftStartingPosition + height);
+      //hardware.rightLiftMotor.setTargetPosition(hardware.rightLiftStartingPosition + height);
       hardware.leftLiftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
       hardware.rightLiftMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
