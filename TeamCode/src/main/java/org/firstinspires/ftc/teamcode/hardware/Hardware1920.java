@@ -23,8 +23,8 @@ public class Hardware1920 extends OpMode {
     public static final double     WHEEL_DIAMETER_INCHES   = 4;     // For figuring circumference
     public static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * Math.PI);
-    public static final double LENGTH = 12.5;
-    public static final double WIDTH = 17.25;
+    public static final double LENGTH = 17;
+    public static final double WIDTH = 16;
     public static final double ROBOT_DIAGONAL_LENGTH = Math.sqrt(Math.pow(LENGTH, 2) + Math.pow(WIDTH, 2));
     public static final double ROBOT_CIRCUMFRENCE = (Math.PI * ROBOT_DIAGONAL_LENGTH);
 
@@ -33,10 +33,13 @@ public class Hardware1920 extends OpMode {
 
     public DcMotor leftSuck;
     public DcMotor rightSuck;
+    public DcMotor backLeftSuck;
+    public DcMotor backRightSuck;
     public DcMotor liftMotor;
+    //public DcMotor liftMotor;
+    public DcMotor armMotor;
     public DcMotor leftLiftMotor;
     public DcMotor rightLiftMotor;
-    public DcMotor armMotor;
 
     public DcMotor frontLeft;
     public DcMotor frontRight;
@@ -49,13 +52,37 @@ public class Hardware1920 extends OpMode {
 
     public int armMotorStartingPosition;
 
+    /*
+
+    HUB A
+
+    Front Left - FL
+    Front Right - FR
+    Back Left - BL
+    Back Right - BR
+
+    HUB B
+
+    Lift Motor - LM
+    Arm Motor - AM
+    Left Suck - LS
+    Right Suck - RS
+
+    Left Grip Servo - LG
+    Right Grip Servo - RG
+
+     */
 
     @Override
     public void init() {
         leftSuck = hardwareMap.dcMotor.get("LS");
         rightSuck = hardwareMap.dcMotor.get("RS");
+        backLeftSuck = hardwareMap.dcMotor.get("BLS");
+        backRightSuck = hardwareMap.dcMotor.get("BRS");
         leftSuck.setDirection(DcMotor.Direction.FORWARD);
-        rightSuck.setDirection(DcMotor.Direction.REVERSE);
+        rightSuck.setDirection(DcMotor.Direction.FORWARD);
+        backLeftSuck.setDirection(DcMotor.Direction.FORWARD);
+        backRightSuck.setDirection(DcMotor.Direction.FORWARD);
 
         frontLeft = hardwareMap.dcMotor.get("FL");
         frontRight = hardwareMap.dcMotor.get("FR");
@@ -63,11 +90,13 @@ public class Hardware1920 extends OpMode {
         backRight = hardwareMap.dcMotor.get("BR");
         omniDrive = new OmniDrive(frontLeft, frontRight, backLeft, backRight);
 
-        liftMotor = hardwareMap.dcMotor.get("LM");
+        //liftMotor = hardwareMap.dcMotor.get("LM");
 
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        //leftGripServo = hardwareMap.servo.get("LG");
+        //rightGripServo = hardwareMap.servo.get("RG");
     }
 
     @Override

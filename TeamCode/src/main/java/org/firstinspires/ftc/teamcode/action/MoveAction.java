@@ -108,7 +108,10 @@ public class MoveAction implements Action {
             case ROTATE_RIGHT:
                 break;
         }
-
+        hardware.omniDrive.frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        hardware.omniDrive.frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        hardware.omniDrive.backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        hardware.omniDrive.backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         hardware.omniDrive.frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         hardware.omniDrive.frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         hardware.omniDrive.backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);

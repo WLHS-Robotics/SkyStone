@@ -33,7 +33,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.hardware.Hardware1920;
-// public
+// public Ethan
+
 @TeleOp(name="Manual", group="")
 public class Manual extends Hardware1920 {
 
@@ -42,7 +43,8 @@ public class Manual extends Hardware1920 {
     boolean gripping = false;
 
     public final double suckPower = 1;
-    public final float SLOW_POWER = 0.4f;
+    public final double negativeSuckPower = -1;
+    public final float SLOW_POWER = 0.75f;
     public final float FAST_POWER = 1;
 
     // Declare OpMode members.
@@ -63,9 +65,25 @@ public class Manual extends Hardware1920 {
         if (gamepad1.a) {
             leftSuck.setPower(suckPower);
             rightSuck.setPower(suckPower);
+            backLeftSuck.setPower(suckPower);
+            backRightSuck.setPower(suckPower);
         } else {
             leftSuck.setPower(0);
             rightSuck.setPower(0);
+            backLeftSuck.setPower(0);
+            backRightSuck.setPower(0);
+        }
+
+        if (gamepad1.x){
+            leftSuck.setPower(negativeSuckPower);
+            rightSuck.setPower(negativeSuckPower);
+            backLeftSuck.setPower(negativeSuckPower);
+            backRightSuck.setPower(negativeSuckPower);
+        } else {
+            leftSuck.setPower(0);
+            rightSuck.setPower(0);
+            backLeftSuck.setPower(0);
+            backRightSuck.setPower(0);
         }
 
         if (gamepad1.b && !fastMode) {
@@ -75,12 +93,11 @@ public class Manual extends Hardware1920 {
         }
 
 
-        double lift = gamepad2.right_stick_y;
+       /* double lift = gamepad2.right_stick_y;
         double armMotion = gamepad2.left_stick_x;
-        double liftPower = Range.clip(lift, -1.0, 1.0);
-        double armPower = Range.clip(armMotion, -1.0, 1.0);
-        leftLiftMotor.setPower(liftPower);
-        rightLiftMotor.setPower(liftPower);
+        double liftPower = Range.clip(lift, -.5, .5);
+        double armPower = Range.clip(armMotion, -.5, .5);
+        //liftMotor.setPower(liftPower);
         armMotor.setPower(armPower);
 
 
@@ -95,5 +112,6 @@ public class Manual extends Hardware1920 {
         }
 
 
+        */
     }
 }

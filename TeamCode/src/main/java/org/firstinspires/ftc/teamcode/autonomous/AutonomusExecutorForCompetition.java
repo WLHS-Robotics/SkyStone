@@ -5,14 +5,16 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.autonomous.sequences.BlueAllianceSequence;
 import org.firstinspires.ftc.teamcode.hardware.Hardware1920;
 
-@Autonomous(name="Autonomous", group = "Autonomous")
+@Autonomous(name="BlueAllianceSequence", group = "")
 
-public class autonomous1920 extends Hardware1920 {
+public class AutonomusExecutorForCompetition extends Hardware1920 {
     ActionExecutor executor;
+    private boolean bigYikes = false;
 
     @Override
     public void init() {
         //super.prepareAction();
+        super.init();
         executor = new ActionExecutor(new BlueAllianceSequence(), this);
     }
 
@@ -20,7 +22,7 @@ public class autonomous1920 extends Hardware1920 {
     public void loop() {
         super.loop();
 
-        if (executor.loop()) {
+        if (executor.loop() || bigYikes) {
             requestOpModeStop();
         }
     }

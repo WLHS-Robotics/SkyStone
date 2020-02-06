@@ -4,9 +4,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.autonomous.Action;
 import org.firstinspires.ftc.teamcode.hardware.Hardware1920;
-
+//whatever you have it
 public class GripArmAction implements Action {
-  public final int extendedDistance = 100;
+  public final int extendedDistance = 33;
 
     boolean extended;
     double power;

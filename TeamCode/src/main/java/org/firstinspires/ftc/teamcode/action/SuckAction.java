@@ -26,10 +26,14 @@ public class SuckAction implements Action {
         if (System.currentTimeMillis() >= endtime) {
             hardware.leftSuck.setPower(0);
             hardware.rightSuck.setPower(0);
+            hardware.backLeftSuck.setPower(0);
+            hardware.backRightSuck.setPower(0);
             return true;
         } else {
             hardware.leftSuck.setPower(power);
             hardware.rightSuck.setPower(power);
+            hardware.backLeftSuck.setPower(power);
+            hardware.backRightSuck.setPower(power);
             return false;
         }
     }
