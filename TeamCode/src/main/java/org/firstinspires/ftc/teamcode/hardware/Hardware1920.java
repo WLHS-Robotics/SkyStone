@@ -4,13 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.vuforia.Vuforia;
-
+import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
@@ -23,6 +24,7 @@ public class Hardware1920 extends OpMode {
     public static final double     WHEEL_DIAMETER_INCHES   = 4;     // For figuring circumference
     public static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * Math.PI);
+    public static final double COUNTS_PER_LAT_INCH = COUNTS_PER_INCH * (24.0/17.5);
     public static final double LENGTH = 17;
     public static final double WIDTH = 16;
     public static final double ROBOT_DIAGONAL_LENGTH = Math.sqrt(Math.pow(LENGTH, 2) + Math.pow(WIDTH, 2));
@@ -49,6 +51,9 @@ public class Hardware1920 extends OpMode {
     public OmniDrive omniDrive;
     public Servo leftGripServo;
     public Servo rightGripServo;
+
+    public ColorSensor sensorColor;
+    public DistanceSensor sensorDistance;
 
     public int armMotorStartingPosition;
 
@@ -90,10 +95,9 @@ public class Hardware1920 extends OpMode {
         backRight = hardwareMap.dcMotor.get("BR");
         omniDrive = new OmniDrive(frontLeft, frontRight, backLeft, backRight);
 
-        //liftMotor = hardwareMap.dcMotor.get("LM");
+        sensorColor = hardwareMap.colorSensor.get("CS");
 
-        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        backRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        //liftMotor = hardwareMap.dcMotor.get("LM");
 
         //leftGripServo = hardwareMap.servo.get("LG");
         //rightGripServo = hardwareMap.servo.get("RG");
@@ -102,6 +106,15 @@ public class Hardware1920 extends OpMode {
     @Override
     public void loop() {
 
+        telemetry.addData("FL", frontLeft.getCurrentPosition());
+        telemetry.addData("FR" ,frontRight.getCurrentPosition());
+        telemetry.addData("BL", backLeft.getCurrentPosition());
+        telemetry.addData("BR", backRight.getCurrentPosition());
+
+        telemetry.addData("FL POW", frontLeft.getPower());
+        telemetry.addData("FR POW", frontRight.getPower());
+        telemetry.addData("BL POW", backLeft.getPower());
+        telemetry.addData("BR POW", backRight.getPower());
 
     }
 

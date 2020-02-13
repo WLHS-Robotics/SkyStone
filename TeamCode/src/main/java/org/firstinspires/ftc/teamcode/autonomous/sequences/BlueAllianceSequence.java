@@ -1,18 +1,18 @@
 package org.firstinspires.ftc.teamcode.autonomous.sequences;
 
+import org.firstinspires.ftc.teamcode.action.ColorActionBlue;
 import org.firstinspires.ftc.teamcode.action.MoveAction;
 import org.firstinspires.ftc.teamcode.action.RotateAction;
 import org.firstinspires.ftc.teamcode.action.SuckAction;
 import org.firstinspires.ftc.teamcode.autonomous.ActionSequence;
+import org.firstinspires.ftc.teamcode.autonomous.DirectionalMoveAction;
 import org.firstinspires.ftc.teamcode.hardware.OmniDrive;
 
 public class BlueAllianceSequence extends ActionSequence {
 
 
     public BlueAllianceSequence() {
-        addAction(new MoveAction(1, 45, OmniDrive.Direction.FORWARD, 2000));
-        addAction(new SuckAction(1, 1000));
-        addAction(new MoveAction(.8f, 40, OmniDrive.Direction.BACKWARD, 2000));
+        addAction(new DirectionalMoveAction(OmniDrive.Direction.LEFT, 24, 0.7f));
 
 
     }
